@@ -13,8 +13,8 @@ public class FiltrationTest extends BaseTest {
         HomePage homePage = new HomePage();
         homePage.header.mainMenuNavigation("Каталог");
 
-        CataloguePage cataloguePage = new CataloguePage();
-        cataloguePage.header.catalogueNavigation("Электроника");
+        CataloguePage cataloguePage = new CataloguePage("Каталог");
+        cataloguePage.catalogueNavigation("Электроника");
         cataloguePage.clickOnItemGroup("Телевидение");
         cataloguePage.clickOnSubItemGroup("Телевизоры");
 
