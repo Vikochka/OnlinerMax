@@ -26,12 +26,12 @@ public class CataloguePage extends BaseOnlinerPage {
     @Step("Click on item group")
     public void clickOnItemGroup(String itemGroup) {
         Label lblItemGroup = new Label(By.xpath(String.format(NAV_CATALOGUE_SUBITEM, itemGroup)));
-        lblItemGroup.moveAndClickByAction();
+        lblItemGroup.click();
     }
 
     @Step("Click on subItem")
     public void clickOnSubItemGroup(String subItemGroup) {
         Label lblSubItemGroup = new Label(By.xpath(String.format(NAV_SUBITEM_GROUP, subItemGroup)));
-        lblSubItemGroup.moveAndClickByAction();
+        lblSubItemGroup.click();
     }
 }

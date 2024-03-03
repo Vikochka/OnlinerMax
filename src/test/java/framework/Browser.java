@@ -42,6 +42,12 @@ public class Browser {
         wait.until(driver1 -> executor.executeScript("return document.readyState").equals("complete"));
     }
 
+    public static void refreshPage() {
+        getDriver().navigate().refresh();
+        waitForPageLoaded();
+    }
+
+
     public static WebDriver getDriver() {
         return driver;
     }

@@ -1,11 +1,7 @@
 package framework.elements;
 
-import framework.Browser;
 import framework.PropertyReader;
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.TimeoutException;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.*;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -80,21 +76,26 @@ public abstract class BaseElements {
         getElement().sendKeys(sendKeys);
     }
 
-    public void selectByValue(String v){
+    public void selectByValue(String v) {
         isElementPresent();
-        new Select(getElement()).selectByValue(v);
-        waitForElementLoaded();
+        Select select = new Select(getElement());
+        select.selectByValue(v);
+    }
+
+    public void selectByVisibleText(String value) {
+        isElementPresent();
+        Select drpDown = new Select(getElement());
+        drpDown.selectByVisibleText(value);
     }
 
     public boolean isSelected() {
         isElementPresent();
-        System.out.println((getProperty("log.select") + getText()));
+        System.out.println((getProperty("log.select") + getText()) + " is selected status: " + element.isSelected());
         return element.isSelected();
     }
 
     public boolean isDisplayed() {
         isElementPresent();
-        System.out.println((getProperty("log.display") + getText()));
         return element.isDisplayed();
     }
 
@@ -124,15 +125,16 @@ public abstract class BaseElements {
     }
 
     public void moveAndClickByAction() {
-        Actions actions = new Actions(Browser.getInstance().getDriver());
-        actions.moveToElement(element)
+        Actions actions = new Actions(getDriver());
+        actions.moveToElement(getElement())
                 .click()
                 .perform();
     }
 
     public void moveToElement() {
         Actions actions = new Actions(getDriver());
-        actions.moveToElement(element);
+        ((JavascriptExecutor) getDriver()).executeScript("arguments[0].style.border='3px solid green'", element);
+        actions.moveToElement(getElement());
     }
 
     public void scrollIntoView() {
@@ -155,7 +157,7 @@ public abstract class BaseElements {
         }
     }
 
-    public void waitForElementLoaded(){
+    public void waitForElementLoaded() {
         new WebDriverWait(driver, Duration.ofSeconds(PropertyReader.getIntProperty("element.load.timeout")));
     }
 
